@@ -1,0 +1,60 @@
+﻿@using OnlineShop.Models;
+@model IEnumerable<OrderService>
+@{
+    ViewData["Title"] = "Details";
+}
+@using System.Net.Http
+@using OnlineShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
+
+}
+<br />
+
+<h2 class="text-info">Service Orders</h2>
+<div>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.OrderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Phonenumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.ServiceTypeId)
+                </th>
+
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.Phonenumber</td>
+                    <td>@item.Address</td>
+                    
+                    <td>@item.ServiceTypes.ServiceType </td>
+
+                    
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+</div>
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

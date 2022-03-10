@@ -1,0 +1,74 @@
+﻿@model OnlineShop.Models.OrderService
+@{
+    ViewData["Title"] = "Order";
+}
+@using System.Net.Http
+@using OnlineShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
+    
+
+}
+<br />
+<head>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <h2 class="text-info" style="text-align:center;"><i class="fas fa-taxi">Enjoy Our Services!!!</i></h2>
+    <form asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded border">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <h3>@ViewBag.message</h3>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Phonenumber"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Phonenumber" class="form-control" />
+                </div>
+                <span asp-validation-for="Phonenumber" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Address"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Address" class="form-control" />
+                </div>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="ServiceTypeId"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="ServiceTypeId" asp-items="ViewBag.ServiceTypeId" class="form-control"></select>
+                    @*<input asp-for="ProductTypeId" class="form-control"/>*@
+                </div>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Save" />
+
+                <a asp-area="Admin" asp-controller="ServiceType" asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+    </form>
+
+    @section Scripts{
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+</body>
+

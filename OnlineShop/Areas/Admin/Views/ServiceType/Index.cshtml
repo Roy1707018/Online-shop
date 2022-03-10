@@ -1,0 +1,91 @@
+﻿@using OnlineShop.Models;
+@model IEnumerable<ServiceTypes>
+@{
+    ViewData["Title"] = "Index";
+}
+@using System.Net.Http
+@using OnlineShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
+
+}
+<br />
+<br />
+<style>
+    h2 {
+        text-align: justify;
+    }
+
+    body {
+        background-image: url('..images/Bg 1.jpeg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-color: azure;
+    }
+</style>
+
+<body>
+
+    <div class="row">
+        <div class="col-6">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+            <h2 class="text-info"><i class="fas fa-taxi">Services we provide!!!</i></h2>
+        </div>
+        <div class="col-6 text-right">
+            @if (userRole == "Admin")
+            {
+                <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp;Add New Service</a>
+
+            }
+
+            </div>
+    </div>
+    <br />
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.ServiceType)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ServiceType</td>
+                    <td>
+
+                        <partial name="View" model="@item.ServiceId" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-controller="OrderService" asp-action="Index" style="text-align:center;">Do you want to add service?</a>
+
+        </li>
+        @if (userRole == "Admin")
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="OrderService" asp-action="Details" style="text-align:center;">Check The orders</a>
+
+            </li>
+        }
+        </ul>
+</body>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function () {
+
+            alertify.success("!welcome to our service! ");
+        });
+    </script> }

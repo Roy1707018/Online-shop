@@ -1,0 +1,24 @@
+﻿
+@model int
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using System.Net.Http
+@using OnlineShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userRole = HttpContextAccessor.HttpContext.Session.GetString("roleName");
+    
+
+}
+<td style="width: 150px">
+    <div class="btn-group">
+        @if (userRole == "Admin")
+        {
+            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model">
+                <i>Delete</i>
+            </a>
+        }
+    </div>
+</td>
